@@ -1,16 +1,13 @@
 package web.dao;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import web.model.User;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-@Repository
+@Component
 @Transactional
 public class UserDaoImpl implements UserDao {
 
@@ -23,7 +20,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User getUserById(int id) {
+    public User getIdUser(int id) {
         return entityManager.find(User.class,id);
     }
 
@@ -34,11 +31,12 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void removeUser(int id) {
-        entityManager.remove(getUserById(id));
+        entityManager.remove(getIdUser(id));
     }
 
     @Override
     public void updateUser(User user) {
         entityManager.merge(user);
+
     }
 }
