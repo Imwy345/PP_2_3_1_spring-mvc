@@ -15,19 +15,18 @@ public class UserController {
 
     private final UserService userService;
 
-    @Autowired()
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping("/")
-    public String test(Model model){
+    public String allUsers(Model model){
         model.addAttribute("users",userService.getAllUsers());
         return "users";
     }
     @GetMapping("/{id}")
     public String getUser (@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userService.getIdUser(id));
+        model.addAttribute("user", userService.getUserById(id));
         return "user";
     }
 
@@ -48,7 +47,7 @@ public class UserController {
 
     @GetMapping("{id}/update")
     public String updateUser(@PathVariable("id") int id, Model model) {
-        model.addAttribute(userService.getIdUser(id));
+        model.addAttribute(userService.getUserById(id));
         return "updateUser";
     }
 
